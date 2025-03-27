@@ -1,5 +1,5 @@
 'use client'
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const generateQuestions = () => {
@@ -112,7 +112,7 @@ const generateQuestions = () => {
   return { fillInTheBlankQuestions, multipleChoiceQuestions };
 };
 
-const QuestionPaperPage = () => {
+const QuestionPaperPageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const subject = searchParams.get('subject');
@@ -122,8 +122,6 @@ const QuestionPaperPage = () => {
   const [selectedMultipleChoice, setSelectedMultipleChoice] = useState([]);
   const [generatedPaper, setGeneratedPaper] = useState(null);
   const [toast, setToast] = useState(null);
-
-  // Retrieve exam details from localStorage
   const [examDetails, setExamDetails] = useState(null);
 
   useEffect(() => {
@@ -278,6 +276,14 @@ const QuestionPaperPage = () => {
         </div>
       )}
     </div>
+  );
+};
+
+const QuestionPaperPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <QuestionPaperPageContent />
+    </Suspense>
   );
 };
 
