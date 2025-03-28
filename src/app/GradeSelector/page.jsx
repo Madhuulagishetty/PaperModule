@@ -7,7 +7,9 @@ import { useRouter } from "next/navigation";
 const GradeSelector = () => {
   const [selectedGrade, setSelectedGrade] = useState(null);
   const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
+  const [StartTime, setStartTime] = useState('');
+  const [EndTime, setEndTime] = useState('');
+
   const [unit, setUnit] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
   const [SchoolName, setSchoolName] = useState('');
@@ -69,7 +71,7 @@ const GradeSelector = () => {
   const router = useRouter();
 
   const handleProceed = () => {
-    // Existing validation checks
+    // Fixed validation checks
     if (!selectedGrade) {
       toast.error("Please select a standard!");
       return;
@@ -82,8 +84,8 @@ const GradeSelector = () => {
       toast.error("Please select a date!");
       return;
     }
-    if (!time) {
-      toast.error("Please select a time!");
+    if (!StartTime || !EndTime) {
+      toast.error("Please select start and end times!");
       return;
     }
     if (!unit) {
@@ -100,11 +102,12 @@ const GradeSelector = () => {
       grade: selectedGrade.title,
       subject: selectedSubject,
       date: date,
-      time: time,
+      startTime: StartTime,
+      endTime: EndTime,
       unit: unit,
-      SchoolName: SchoolName
+      schoolName: SchoolName
     };
-
+   console.log(StartTime,EndTime)
     // Store exam details in localStorage
     localStorage.setItem('examDetails', JSON.stringify(examDetails));
 
@@ -187,7 +190,7 @@ const GradeSelector = () => {
                 />
               </div>
               <div className="flex flex-col">
-                <label className="text-black font-medium mb-2">School Name</label>
+                <label className="text-black font-medium mb-2">School Name / Classes Name</label>
                 <input 
                   type="text"
                   value={SchoolName}
@@ -198,11 +201,20 @@ const GradeSelector = () => {
 
               {/* Time Input */}
               <div className="flex flex-col">
-                <label className="text-black font-medium mb-2">Exam Time:</label>
+                <label className="text-black font-medium mb-2">Start Time:</label>
                 <input 
                   type="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
+                  value={StartTime}
+                  onChange={(e) => setStartTime(e.target.value)}
+                  className="p-2 sm:p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 text-black"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="text-black font-medium mb-2">End Time:</label>
+                <input 
+                  type="time"
+                  value={EndTime}
+                  onChange={(e) => setEndTime(e.target.value)}
                   className="p-2 sm:p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 text-black"
                 />
               </div>

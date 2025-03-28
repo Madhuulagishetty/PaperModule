@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePDF } from 'react-to-pdf';
+import { Printer, Download } from 'lucide-react';
 
 const FinalQuestionPaperPage = () => {
   const { toPDF, targetRef } = usePDF({
@@ -16,13 +17,11 @@ const FinalQuestionPaperPage = () => {
 
   // State to store exam details and generated paper
   const [examDetails, setExamDetails] = useState({
-    SchoolName: 'ST. GEORGE\'S SCHOOL, ALAKNANDA',
-    subject: 'MATHEMATICS',
-    grade: 'XI',
-    date: '05.05.2015'
+   
   });
   const [questionPaper, setQuestionPaper] = useState(null);
-
+  // console.log(StartTime,EndTime)
+  // console.log(examDetails.)
   useEffect(() => {
     // Retrieve exam details from localStorage
     const storedExamDetails = localStorage.getItem('examDetails');
@@ -50,6 +49,8 @@ const FinalQuestionPaperPage = () => {
       ]);
     }
   }, []);
+ 
+    console.log(examDetails.SchoolName)
 
   // Advanced print and PDF handlers
   const handlePrint = () => {
@@ -88,7 +89,7 @@ const FinalQuestionPaperPage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-3xl">
+    <div className="container mx-auto px-3 py-4 max-w-3xl">
       <div 
         id="print-section"
         ref={targetRef} 
@@ -97,7 +98,7 @@ const FinalQuestionPaperPage = () => {
         {/* School Header */}
         <div className="text-center mb-3">
           <h1 className="text-xl font-bold uppercase tracking-wider">
-            {examDetails.SchoolName}
+            {examDetails.schoolName}
           </h1>
           <h2 className="text-base font-semibold mt-1">UNIT TEST - 1</h2>
         </div>
@@ -117,23 +118,20 @@ const FinalQuestionPaperPage = () => {
           <div>
             <strong>DATE :- </strong> {examDetails.date}
           </div>
+          
+          
           <div>
-            <strong>MAX. TIME: 45 MIN.</strong>
-          </div>
-          <div>
-            <strong>MM: 25</strong>
-          </div>
-          <div>
-            <strong>NO. OF PAGES: 01</strong>
-          </div>
+             <strong>Time:- </strong>{examDetails.startTime} To {examDetails.endTime}
+         </div>
+         
+          
+         
         </div>
 
         {/* General Instructions */}
         <div className="mb-2 text-xs">
-          <strong>General Instructions :</strong>
-          <ul className="list-disc list-inside ml-4">
-            <li>All questions are compulsory.</li>
-          </ul>
+          <strong>General Instructions : </strong>All questions are compulsory.
+          
         </div>
         <div className='border mt-2 mb-2'></div>
         {/* Questions */}
@@ -168,20 +166,39 @@ const FinalQuestionPaperPage = () => {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-center space-x-4 mt-4 print:hidden">
-        <button 
-          onClick={handlePrint}
-          className="bg-blue-500 text-white px-4 py-2 rounded text-xs hover:bg-blue-600 transition"
-        >
-          Print Question Paper
-        </button>
-        <button 
-          onClick={handleDownloadPDF}
-          className="bg-green-500 text-white px-4 py-2 rounded text-xs hover:bg-green-600 transition"
-        >
-          Download PDF
-        </button>
-      </div>
+      <div className="flex justify-center space-x-4 mt-6 print:hidden">
+      <button 
+        onClick={handlePrint}
+        className="group relative flex items-center justify-center 
+        px-6 py-2.5 text-sm font-medium 
+        text-white bg-blue-600 rounded-lg 
+        shadow-md hover:shadow-lg 
+        transition-all duration-300 ease-in-out 
+        transform hover:-translate-y-0.5 
+        focus:outline-none focus:ring-2 
+        focus:ring-blue-500 focus:ring-offset-2"
+      >
+        <Printer className="mr-2 w-5 h-5 transition-transform group-hover:rotate-12" />
+        Print Question Paper
+        <span className="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-10 rounded-lg transition-opacity"></span>
+      </button>
+      
+      <button 
+        onClick={handleDownloadPDF}
+        className="group relative flex items-center justify-center 
+        px-6 py-2.5 text-sm font-medium 
+        text-white bg-green-600 rounded-lg 
+        shadow-md hover:shadow-lg 
+        transition-all duration-300 ease-in-out 
+        transform hover:-translate-y-0.5 
+        focus:outline-none focus:ring-2 
+        focus:ring-green-500 focus:ring-offset-2"
+      >
+        <Download className="mr-2 w-5 h-5 transition-transform group-hover:scale-110" />
+        Download PDF
+        <span className="absolute inset-0 bg-green-700 opacity-0 group-hover:opacity-10 rounded-lg transition-opacity"></span>
+      </button>
+    </div>
     </div>
   );
 };

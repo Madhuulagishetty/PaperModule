@@ -23,10 +23,10 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+    <div className="flex h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-50">
       <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
         <h2 className="text-center text-2xl font-bold text-gray-800 mb-6">
-          Student Portal Login
+           Login
         </h2>
         
         <form onSubmit={handleLogin} className="space-y-4">
@@ -41,7 +41,7 @@ export default function Login() {
               htmlFor="username" 
               className="block text-sm font-medium text-gray-700"
             >
-              Username
+              Username :
             </label>
             <input
               id="username"
@@ -59,7 +59,7 @@ export default function Login() {
               htmlFor="password" 
               className="block text-sm font-medium text-gray-700"
             >
-              Password
+              Password :
             </label>
             <div className="relative">
               <input

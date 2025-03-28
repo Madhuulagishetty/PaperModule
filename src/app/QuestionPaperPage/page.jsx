@@ -115,6 +115,8 @@ const generateQuestions = () => {
 const QuestionPaperPageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  
+  // Retrieve the subject from search parameters
   const subject = searchParams.get('subject');
 
   const { fillInTheBlankQuestions, multipleChoiceQuestions } = generateQuestions();
@@ -201,7 +203,8 @@ const QuestionPaperPageContent = () => {
         </div>
       )}
       
-      <h1 className="text-2xl font-bold mb-4 text-center">Mathematics Question Paper Generator</h1>
+      {/* Use the subject from search params */}
+      <h1 className="text-2xl font-bold mb-4 text-center">{subject} Question Paper</h1>
       
       <div className="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4">Fill in the Blanks (Select 5)</h2>
@@ -227,7 +230,7 @@ const QuestionPaperPageContent = () => {
       <div className="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4">Multiple Choice Questions (Select 5)</h2>
         {multipleChoiceQuestions.map((question) => (
-          <div key={question.id} className="mb-4">
+          <div key={question.id} className="mb-2">
             <div className="flex items-center mb-2">
               <input
                 type="checkbox"
